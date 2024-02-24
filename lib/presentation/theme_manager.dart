@@ -77,5 +77,78 @@ ThemeData getApplicationTheme() {
     ),
 
     // input decoration theme (text form field)
+    inputDecorationTheme: InputDecorationTheme(
+      // content padding
+      contentPadding: const EdgeInsets.all(AppPadding.p8),
+
+      // hint style
+      hintStyle: getRegularStyle(
+        color: ColorManager.grey,
+        fontSize: FontSize.s14,
+      ),
+
+      //label style
+      labelStyle: getMediumStyle(
+        color: ColorManager.grey,
+        fontSize: FontSize.s14,
+      ),
+
+      // error style
+      errorStyle: getRegularStyle(
+        color: ColorManager.error,
+      ),
+
+      // enabled Border style
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorManager.grey,
+          width: AppSize.s1_5,
+        ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(
+            AppSize.s8,
+          ),
+        ),
+      ),
+
+      // focused Border style
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorManager.primary,
+          width: AppSize.s1_5,
+        ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(
+            AppSize.s8,
+          ),
+        ),
+      ),
+
+      // error Border style
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorManager.error,
+          width: AppSize.s1_5,
+        ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(
+            AppSize.s8,
+          ),
+        ),
+      ),
+
+      // focused Error Border style
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorManager.primary,
+          width: AppSize.s1_5,
+        ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(
+            AppSize.s8,
+          ),
+        ),
+      ),
+    ),
   );
 }
