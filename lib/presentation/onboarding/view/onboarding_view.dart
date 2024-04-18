@@ -1,4 +1,3 @@
-import 'package:advanced_flutter/domain/models.dart';
 import 'package:advanced_flutter/presentation/onboarding/viewmodel/onboarding_viewModel.dart';
 import 'package:advanced_flutter/presentation/resources/assets_manager.dart';
 import 'package:advanced_flutter/presentation/resources/color_manager.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../domain/model/models.dart';
 import '../../resources/constants_manager.dart';
 import '../../resources/routes_manager.dart';
 
