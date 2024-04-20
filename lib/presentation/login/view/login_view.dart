@@ -1,4 +1,5 @@
 import 'package:advanced_flutter/presentation/resources/color_manager.dart';
+import 'package:advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class _LoginViewState extends State<LoginView> {
         child: SingleChildScrollView(
           child: Form(
             key: _fromKey,
-            child:  Column(
+            child: Column(
               children: [
                 const Center(
                     child: Image(
@@ -56,13 +57,44 @@ class _LoginViewState extends State<LoginView> {
                   height: AppSize.s28,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                   child: StreamBuilder<bool>(
                     stream: _viewModel.outIsUserNameValid,
-                    builder: (context,snapshot){
+                    builder: (context, snapshot) {
                       return TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         controller: _userNameController,
+                        decoration: InputDecoration(
+                          hintText: AppStrings.username,
+                          labelText: AppStrings.username,
+                          errorText: (snapshot.data ?? true)
+                              ? null
+                              : AppStrings.usernameError,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: AppSize.s28,
+                ),
+                Padding(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  child: StreamBuilder<bool>(
+                    stream: _viewModel.outIsPasswordValid,
+                    builder: (context, snapshot) {
+                      return TextFormField(
+                        keyboardType: TextInputType.visiblePassword,
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                          hintText: AppStrings.password,
+                          labelText: AppStrings.password,
+                          errorText: (snapshot.data ?? true)
+                              ? null
+                              : AppStrings.passwordError,
+                        ),
                       );
                     },
                   ),
