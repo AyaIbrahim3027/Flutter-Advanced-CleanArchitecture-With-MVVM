@@ -81,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                   child: StreamBuilder<bool>(
                     stream: _viewModel.outIsPasswordValid,
                     builder: (context, snapshot) {
@@ -99,6 +99,23 @@ class _LoginViewState extends State<LoginView> {
                     },
                   ),
                 ),
+                const SizedBox(
+                  height: AppSize.s28,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  child: StreamBuilder<bool>(
+                    stream: ,
+                    builder: (context , snapshot){
+                      return ElevatedButton(onPressed: (){
+                        _viewModel.login();
+                      }, child: const Text(
+                        AppStrings.login,
+                      ));
+                    },
+                  ),
+                )
               ],
             ),
           ),
