@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:advanced_flutter/domain/usecase/login_usecase.dart';
+
 import '../../base/base_view_model.dart';
 import '../../common/freezed_data_classes.dart';
 
@@ -10,7 +12,10 @@ class LoginViewModel
   final StreamController _passwordStreamController =
       StreamController<String>.broadcast();
 
-  var loginObject = LoginObject('','');
+  var loginObject = LoginObject('', '');
+  final LoginUseCase _loginUseCase;
+
+  LoginViewModel(this._loginUseCase);
 
   // inputs
   @override
@@ -43,19 +48,27 @@ class LoginViewModel
   }
 
   @override
-  login() {
-    // TODO: implement login
-    throw UnimplementedError();
+  login() async {
+    (await _loginUseCase.execute(
+            LoginUseCaseInput(loginObject.userName, loginObject.password)))
+        .fold((failure) => {
+          // left -> failure
+      print(failure.message)
+
+    }, (data) => {
+          // right -> data (success)
+      print(data.customer?.name)
+    });
   }
 
   // outputs
   @override
-  Stream<bool> get outIsPasswordValid =>
-      _passwordStreamController.stream.map((password) => isPasswordValid(password));
+  Stream<bool> get outIsPasswordValid => _passwordStreamController.stream
+      .map((password) => isPasswordValid(password));
 
   @override
-  Stream<bool> get outIsUserNameValid =>
-      _userNameStreamController.stream.map((userName) => isUserNameValid(userName));
+  Stream<bool> get outIsUserNameValid => _userNameStreamController.stream
+      .map((userName) => isUserNameValid(userName));
 
   bool isPasswordValid(String password) {
     return password.isNotEmpty;
