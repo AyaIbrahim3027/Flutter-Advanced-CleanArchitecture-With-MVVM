@@ -5,6 +5,8 @@ import 'package:advanced_flutter/data/network/dio_factory.dart';
 import 'package:advanced_flutter/data/network/network_info.dart';
 import 'package:advanced_flutter/data/repository/repository_implementer.dart';
 import 'package:advanced_flutter/domain/repository/repository.dart';
+import 'package:advanced_flutter/domain/usecase/login_usecase.dart';
+import 'package:advanced_flutter/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -41,4 +43,9 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<Repository>(() => RepositoryImpl(instance(), instance()));
 }
 
-Future<void> initLoginModule() async {}
+ initLoginModule()  {
+  if(!GetIt.I.isRegistered<LoginUseCase>()) {
+    instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
+    instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+  }
+}
