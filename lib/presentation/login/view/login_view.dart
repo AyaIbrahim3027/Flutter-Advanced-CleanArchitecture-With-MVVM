@@ -1,4 +1,4 @@
-import 'package:advanced_flutter/domain/usecase/login_usecase.dart';
+import 'package:advanced_flutter/app/dependancy_injection.dart';
 import 'package:advanced_flutter/presentation/resources/color_manager.dart';
 import 'package:advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:advanced_flutter/presentation/resources/values_manager.dart';
@@ -16,8 +16,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  LoginUseCase _loginUseCase = LoginUseCase(_repository)
-  final LoginViewModel _viewModel = LoginViewModel();
+  final LoginViewModel _viewModel = instance<LoginViewModel>();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _fromKey = GlobalKey<FormState>();
