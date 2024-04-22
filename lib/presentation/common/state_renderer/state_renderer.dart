@@ -40,9 +40,13 @@ class StateRenderer extends StatelessWidget {
   Widget _getStateWidget(BuildContext context) {
     switch (stateRendererType) {
       case StateRendererType.popupLoadingState:
-        return _getPopUpDialog(context);
+        return _getPopUpDialog(context, [_getAnimatedImage()]);
       case StateRendererType.popupErrorState:
-      // TODO: Handle this case.
+        return _getPopUpDialog(context, [
+          _getAnimatedImage(),
+          _getMessage(message),
+          _getRetryButton(AppStrings.ok, context),
+        ]);
       case StateRendererType.fullScreenLoadingState:
         return _getItemsColumn([
           _getAnimatedImage(),
@@ -55,13 +59,18 @@ class StateRenderer extends StatelessWidget {
           _getRetryButton(AppStrings.retryAgain, context),
         ]);
       case StateRendererType.fullScreenEmptyState:
-      // TODO: Handle this case.
+        return _getItemsColumn([
+          _getAnimatedImage(),
+          _getMessage(message),
+        ]);
       case StateRendererType.contentState:
-      // TODO: Handle this case.
+        return Container();
+      default:
+        return Container();
     }
   }
 
-  Widget _getPopUpDialog(BuildContext context) {
+  Widget _getPopUpDialog(BuildContext context, List<Widget> children) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSize.s14),
@@ -78,12 +87,19 @@ class StateRenderer extends StatelessWidget {
                 color: Colors.black26,
               ),
             ]),
-        child: _getDialogContent(context),
+        child: _getDialogContent(context, children),
       ),
     );
   }
 
-  _getDialogContent(BuildContext context) {}
+  _getDialogContent(BuildContext context, List<Widget> children) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: children,
+    );
+  }
 
   Widget _getItemsColumn(List<Widget> children) {
     return Column(
