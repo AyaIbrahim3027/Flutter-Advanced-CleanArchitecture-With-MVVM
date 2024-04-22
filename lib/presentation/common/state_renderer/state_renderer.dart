@@ -1,4 +1,3 @@
-import 'package:advanced_flutter/data/network/failure.dart';
 import 'package:advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:flutter/material.dart';
 
