@@ -34,13 +34,13 @@ class StateRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  _getStateWidget(context);
+    return _getStateWidget(context);
   }
 
   Widget _getStateWidget(BuildContext context) {
     switch (stateRendererType) {
       case StateRendererType.popupLoadingState:
-      // TODO: Handle this case.
+        return _getPopUpDialog(context);
       case StateRendererType.popupErrorState:
       // TODO: Handle this case.
       case StateRendererType.fullScreenLoadingState:
@@ -52,7 +52,7 @@ class StateRenderer extends StatelessWidget {
         return _getItemsColumn([
           _getAnimatedImage(),
           _getMessage(message),
-          _getRetryButton(AppStrings.retryAgain , context),
+          _getRetryButton(AppStrings.retryAgain, context),
         ]);
       case StateRendererType.fullScreenEmptyState:
       // TODO: Handle this case.
@@ -60,6 +60,30 @@ class StateRenderer extends StatelessWidget {
       // TODO: Handle this case.
     }
   }
+
+  Widget _getPopUpDialog(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSize.s14),
+      ),
+      elevation: AppSize.s1_5,
+      backgroundColor: Colors.transparent,
+      child: Container(
+        decoration: BoxDecoration(
+            color: ColorManager.white,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(AppSize.s1_5),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black26,
+              ),
+            ]),
+        child: _getDialogContent(context),
+      ),
+    );
+  }
+
+  _getDialogContent(BuildContext context) {}
 
   Widget _getItemsColumn(List<Widget> children) {
     return Column(
@@ -92,7 +116,7 @@ class StateRenderer extends StatelessWidget {
     );
   }
 
-  Widget _getRetryButton(String buttonTitle , BuildContext context) {
+  Widget _getRetryButton(String buttonTitle, BuildContext context) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p18),
@@ -100,10 +124,10 @@ class StateRenderer extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {
-              if(stateRendererType == StateRendererType.fullScreenErrorState){
+              if (stateRendererType == StateRendererType.fullScreenErrorState) {
                 // call retry function
                 retryActionFunction.call();
-              }else{
+              } else {
                 // popup error state
                 Navigator.of(context).pop();
               }
