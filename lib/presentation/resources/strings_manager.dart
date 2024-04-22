@@ -24,6 +24,6 @@ class AppStrings {
   static const forgetPassword = 'Forget password';
   static const registerText = 'Not a member? Sign Up ';
 
-
+  static const loading = 'Loading...';
 
 }
