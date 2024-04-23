@@ -88,35 +88,48 @@ extension FlowStateExtension on FlowState {
           }
         }
 
-      case ErrorState:{
-        if (getStateRendererType() == StateRendererType.popupErrorState) {
-          // show popup error
-          showPopup(context, getStateRendererType(), getMessage());
-          // show content ui of screen
-          return contentScreenWidget;
-        } else {
-          // full screen error state
-          return StateRenderer(
-              message: getMessage(),
-              stateRendererType: getStateRendererType(),
-              retryActionFunction: retryActionFunction);
+      case ErrorState:
+        {
+          dismissDialog(context);
+          if (getStateRendererType() == StateRendererType.popupErrorState) {
+            // show popup error
+            showPopup(context, getStateRendererType(), getMessage());
+            // show content ui of screen
+            return contentScreenWidget;
+          } else {
+            // full screen error state
+            return StateRenderer(
+                message: getMessage(),
+                stateRendererType: getStateRendererType(),
+                retryActionFunction: retryActionFunction);
+          }
         }
-      }
       case EmptyState:
         {
           return StateRenderer(
               message: getMessage(),
               stateRendererType: getStateRendererType(),
-              retryActionFunction: (){});
+              retryActionFunction: () {});
         }
       case ContentState:
         {
+          dismissDialog(context);
           return contentScreenWidget;
         }
       default:
         {
+          dismissDialog(context);
           return contentScreenWidget;
         }
+    }
+  }
+
+  _isCurrentDialogShowing(BuildContext context) =>
+      ModalRoute.of(context)?.isCurrent != true;
+
+  dismissDialog(BuildContext context) {
+    if (_isCurrentDialogShowing(context)) {
+      Navigator.of(context, rootNavigator: true).pop(true);
     }
   }
 
