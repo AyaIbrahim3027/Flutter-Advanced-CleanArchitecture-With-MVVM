@@ -1,4 +1,5 @@
 import 'package:advanced_flutter/app/dependancy_injection.dart';
+import 'package:advanced_flutter/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:advanced_flutter/presentation/resources/color_manager.dart';
 import 'package:advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:advanced_flutter/presentation/resources/values_manager.dart';
@@ -37,13 +38,23 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget();
+    return Scaffold(
+      backgroundColor: ColorManager.white,
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data
+                  ?.getScreenWidget(context, _getContentWidget(), () {
+                    _viewModel.login();
+          }) ??
+              _getContentWidget();
+        },
+      ),
+    );
   }
 
   Widget _getContentWidget() {
-    return Scaffold(
-      backgroundColor: ColorManager.white,
-      body: Container(
+    return  Container(
         padding: const EdgeInsets.only(top: AppPadding.p100),
         child: SingleChildScrollView(
           child: Form(
@@ -137,7 +148,8 @@ class _LoginViewState extends State<LoginView> {
                     children: [
                       TextButton(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, Routes.forgotPasswordRoute);
+                          Navigator.pushReplacementNamed(
+                              context, Routes.forgotPasswordRoute);
                         },
                         child: Text(
                           AppStrings.forgetPassword,
@@ -146,7 +158,8 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, Routes.registerRoute);
+                          Navigator.pushReplacementNamed(
+                              context, Routes.registerRoute);
                         },
                         child: Text(
                           AppStrings.registerText,
@@ -160,7 +173,6 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
         ),
-      ),
     );
   }
 
