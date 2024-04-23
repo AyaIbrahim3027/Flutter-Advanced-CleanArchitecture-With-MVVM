@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:advanced_flutter/domain/usecase/login_usecase.dart';
+import 'package:advanced_flutter/presentation/common/state_renderer/state_renderer_impl.dart';
 
 import '../../base/base_view_model.dart';
 import '../../common/freezed_data_classes.dart';
@@ -26,6 +27,7 @@ class LoginViewModel
   // inputs
   @override
   void dispose() {
+    super.dispose();
     _userNameStreamController.close();
     _passwordStreamController.close();
     _areAllInputsValidStreamController.close();
@@ -33,7 +35,8 @@ class LoginViewModel
 
   @override
   void start() {
-    // TODO: implement start
+    // view model should tell view please show content state
+    inputState.add(ContentState());
   }
 
   @override
