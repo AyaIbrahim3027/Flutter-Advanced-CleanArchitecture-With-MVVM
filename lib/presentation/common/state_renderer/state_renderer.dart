@@ -11,6 +11,7 @@ enum StateRendererType {
   // POPUP STATE (Dialog)
   popupLoadingState,
   popupErrorState,
+  popupSuccess,
 
   // FULL SCREEN STATE (Full Screen)
   fullScreenLoadingState,
@@ -53,6 +54,17 @@ class StateRenderer extends StatelessWidget {
           context,
           [
             _getAnimatedImage(JsonAssets.error),
+            _getMessage(message),
+            _getRetryButton(AppStrings.ok, context),
+          ],
+        );
+
+      case StateRendererType.popupSuccess:
+        return _getPopUpDialog(
+          context,
+          [
+            _getAnimatedImage(JsonAssets.success),
+            _getMessage(title),
             _getMessage(message),
             _getRetryButton(AppStrings.ok, context),
           ],

@@ -56,7 +56,7 @@ class ForgotPasswordViewModel extends BaseViewModel
                   StateRendererType.popupErrorState, failure.message))
             },
         (supportMessage) {
-          inputState.add(ContentState());
+          inputState.add(SuccessState(supportMessage));
         });
   }
 
@@ -79,7 +79,7 @@ class ForgotPasswordViewModel extends BaseViewModel
 }
 
 abstract mixin class ForgotPasswordViewModelInputs {
-  setEmail(String userName);
+  setEmail(String email);
   forgotPassword();
 
   Sink get inputEmail;
