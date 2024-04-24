@@ -18,6 +18,8 @@ class LoginViewModel
   final StreamController _areAllInputsValidStreamController =
       StreamController<void>.broadcast();
 
+  StreamController isUserLoggedInSuccessfullyStreamController = StreamController<bool>();
+
   var loginObject = LoginObject('', '');
 
   final LoginUseCase _loginUseCase;
@@ -32,6 +34,7 @@ class LoginViewModel
     _userNameStreamController.close();
     _passwordStreamController.close();
     _areAllInputsValidStreamController.close();
+    isUserLoggedInSuccessfullyStreamController.close();
   }
 
   @override
@@ -74,13 +77,14 @@ class LoginViewModel
               inputState.add(ErrorState(StateRendererType.popupErrorState, failure.message))
                   // print(failure.message)
                 },
-            (data) => {
+            (data) {
                   // right -> data (success)
                   // print(data.customer?.name)
 
               // content
-              inputState.add(ContentState())
+              inputState.add(ContentState());
               // navigate to main screen
+              isUserLoggedInSuccessfullyStreamController.add(true);
                 });
   }
 
