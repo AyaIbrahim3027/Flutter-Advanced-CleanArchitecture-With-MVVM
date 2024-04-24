@@ -19,10 +19,14 @@ class AppStrings {
   static const username = 'Username';
   static const password = 'Password';
   static const usernameError = 'Please enter your userName';
+  static const emailError = 'Please enter your email';
   static const passwordError = 'Please enter your password';
   static const login = 'Login';
   static const forgetPassword = 'Forget password';
   static const registerText = 'Not a member? Sign Up ';
+  static const resetPassword = 'Reset Password';
+  static const resendEmail = 'Didn’t recieve email ? Resend';
+  static const email = 'Email';
 
   static const loading = 'Loading...';
   static const retryAgain = 'Retry again';

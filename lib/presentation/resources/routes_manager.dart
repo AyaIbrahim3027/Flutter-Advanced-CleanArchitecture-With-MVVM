@@ -1,5 +1,5 @@
 import 'package:advanced_flutter/app/dependancy_injection.dart';
-import 'package:advanced_flutter/presentation/forgot_password/forgot_password_view.dart';
+import 'package:advanced_flutter/presentation/forgot_password/view/forgot_password_view.dart';
 import 'package:advanced_flutter/presentation/main/main_view.dart';
 import 'package:advanced_flutter/presentation/onboarding/view/onboarding_view.dart';
 import 'package:advanced_flutter/presentation/register/register_view.dart';
@@ -37,6 +37,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const RegisterView());
 
       case Routes.forgotPasswordRoute:
+        initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
 
       case Routes.mainRoute:
