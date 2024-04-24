@@ -8,7 +8,7 @@ import '../../base/base_view_model.dart';
 import '../../common/freezed_data_classes.dart';
 
 class LoginViewModel
-    implements BaseViewModel, LoginViewModelInputs, LoginViewModelOutputs {
+    extends BaseViewModel with LoginViewModelInputs, LoginViewModelOutputs {
   final StreamController _userNameStreamController =
       StreamController<String>.broadcast();
 
@@ -111,7 +111,7 @@ class LoginViewModel
   }
 }
 
-abstract class LoginViewModelInputs {
+abstract mixin class LoginViewModelInputs {
   setUserName(String userName);
   setPassword(String password);
   login();
@@ -122,7 +122,7 @@ abstract class LoginViewModelInputs {
   Sink get inputAreAllInputsValid; // for login button
 }
 
-abstract class LoginViewModelOutputs {
+abstract mixin class LoginViewModelOutputs {
   Stream<bool> get outIsUserNameValid;
   Stream<bool> get outIsPasswordValid;
 

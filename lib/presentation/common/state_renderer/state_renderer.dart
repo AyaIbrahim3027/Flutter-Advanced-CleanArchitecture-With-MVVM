@@ -164,7 +164,12 @@ class StateRenderer extends StatelessWidget {
                 Navigator.of(context).pop();
               }
             },
-            child: Text(buttonTitle),
+            child: Text(
+              buttonTitle,
+              style: TextStyle(
+                color: ColorManager.white,
+              ),
+            ),
           ),
         ),
       ),

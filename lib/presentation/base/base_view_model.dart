@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:advanced_flutter/presentation/common/state_renderer/state_renderer_impl.dart';
 
 abstract class BaseViewModel
-    implements BaseViewModelInputs, BaseViewModelOutputs {
+    extends BaseViewModelInputs with BaseViewModelOutputs {
   // shared variables and functions that will be used through any view model
   final StreamController _inputStreamController =
       StreamController<FlowState>.broadcast();
@@ -21,14 +21,14 @@ abstract class BaseViewModel
   }
 }
 
-abstract class BaseViewModelInputs {
+abstract mixin class BaseViewModelInputs {
   void start(); // start view model job
   void dispose(); // will be called when view model dies
 
   Sink get inputState;
 }
 
-abstract class BaseViewModelOutputs {
+ abstract mixin class BaseViewModelOutputs {
   // will be implemented later
   Stream<FlowState> get outputState;
 }
