@@ -33,6 +33,7 @@ class AppStrings {
   static const ok = 'Ok';
   static const success = 'Success';
   static const userNameInvalid = "User name should be at least 8 characters";
-
-
+  static const emailInvalid = "Email format is wrong";
+  static const mobileNumberInvalid = "mobile Number should be at least 10 digits";
+  static const passwordInvalid = "Password should be at least 6 characters";
 }
