@@ -32,6 +32,7 @@ class AppStrings {
   static const retryAgain = 'Retry again';
   static const ok = 'Ok';
   static const success = 'Success';
+  static const userNameInvalid = "User name should be at least 8 characters";
 
 
 }
