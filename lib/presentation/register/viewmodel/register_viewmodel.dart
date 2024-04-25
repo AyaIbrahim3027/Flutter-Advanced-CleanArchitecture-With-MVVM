@@ -59,6 +59,78 @@ class RegisterViewModel extends BaseViewModel
   @override
   Sink get inputUserName => userNameStreamController.sink;
 
+  @override
+  setUserName(String userName) {
+    if(_isUserNameValid(userName)){
+      // update register view object
+      registerObject = registerObject.copyWith(userName: userName);
+    }else{
+      // reset username value in register view object
+      registerObject = registerObject.copyWith(userName: '');
+    }
+  }
+
+  @override
+  setEmail(String email) {
+    if(isEmailValid(email)){
+      // update register view object
+      registerObject = registerObject.copyWith(email: email);
+    }else{
+      // reset email value in register view object
+      registerObject = registerObject.copyWith(email:'');
+    }
+  }
+
+  @override
+  setPassword(String password) {
+    if(_isPasswordValid(password)){
+      // update register view object
+      registerObject = registerObject.copyWith(password: password);
+    }else{
+      // reset password value in register view object
+      registerObject = registerObject.copyWith(password:'');
+    }
+  }
+
+  @override
+  setCountryCode(String countryCode) {
+    if(countryCode.isNotEmpty){
+      // update register view object
+      registerObject = registerObject.copyWith(countryMobileCode: countryCode);
+    }else{
+      // reset country Code value in register view object
+      registerObject = registerObject.copyWith(countryMobileCode:'');
+    }
+  }
+
+  @override
+  setMobileNumber(String mobileNumber) {
+    if(_isMobileNumberValid(mobileNumber)){
+      // update register view object
+      registerObject = registerObject.copyWith(mobileNumber: mobileNumber);
+    }else{
+      // reset mobile Number value in register view object
+      registerObject = registerObject.copyWith(mobileNumber:'');
+    }
+  }
+
+  @override
+  setProfilePicture(File profilePicture) {
+    if(profilePicture.path.isNotEmpty){
+      // update register view object
+      registerObject = registerObject.copyWith(profilePicture: profilePicture.path);
+    }else{
+      // reset profile Picture value in register view object
+      registerObject = registerObject.copyWith(profilePicture:'');
+    }
+  }
+
+  @override
+  register() {
+    // TODO: implement register
+    throw UnimplementedError();
+  }
+
   // outputs
 
   @override
@@ -120,6 +192,15 @@ abstract mixin class RegisterViewModelInput {
   Sink get inputEmail;
   Sink get inputPassword;
   Sink get inputProfilePicture;
+
+  register();
+
+  setUserName(String userName);
+  setMobileNumber(String mobileNumber);
+  setCountryCode(String countryCode);
+  setEmail(String email);
+  setPassword(String password);
+  setProfilePicture(File profilePicture);
 }
 
 abstract mixin class RegisterViewModelOutput {
