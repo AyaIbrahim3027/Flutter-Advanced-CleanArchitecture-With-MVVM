@@ -4,6 +4,7 @@ import 'package:advanced_flutter/domain/usecase/register_usecase.dart';
 import 'package:advanced_flutter/presentation/base/base_view_model.dart';
 import 'package:advanced_flutter/presentation/resources/strings_manager.dart';
 import '../../../app/functions.dart';
+import '../../common/freezed_data_classes.dart';
 
 class RegisterViewModel extends BaseViewModel
     with RegisterViewModelInput, RegisterViewModelOutput {
@@ -20,6 +21,8 @@ class RegisterViewModel extends BaseViewModel
       StreamController<void>.broadcast();
 
   final RegisterUseCase _registerUseCase;
+  var registerObject = RegisterObject('', '', '', '', '', '');
+
   RegisterViewModel(this._registerUseCase);
 
   //inputs
@@ -89,13 +92,12 @@ class RegisterViewModel extends BaseViewModel
       .map((password) => _isPasswordValid(password));
 
   @override
-  Stream<String?> get outputErrorPassword =>
-      outputIsPasswordValid.map((isPasswordValid) =>
-          isPasswordValid ? null : AppStrings.passwordInvalid);
+  Stream<String?> get outputErrorPassword => outputIsPasswordValid.map(
+      (isPasswordValid) => isPasswordValid ? null : AppStrings.passwordInvalid);
 
   @override
-  Stream<File> get outputIsProfilePictureValid => profilePictureStreamController.stream
-      .map((file) => file);
+  Stream<File> get outputIsProfilePictureValid =>
+      profilePictureStreamController.stream.map((file) => file);
 
   //private functions
 
