@@ -13,6 +13,7 @@ import 'package:advanced_flutter/presentation/login/viewmodel/login_viewmodel.da
 import 'package:advanced_flutter/presentation/register/viewmodel/register_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -71,5 +72,8 @@ initRegisterModule() {
         .registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
     instance.registerFactory<RegisterViewModel>(
         () => RegisterViewModel(instance()));
+
+    instance
+        .registerFactory<ImagePicker>(() => ImagePicker());
   }
 }

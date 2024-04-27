@@ -9,6 +9,7 @@ import 'package:advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../resources/assets_manager.dart';
 import '../../resources/routes_manager.dart';
@@ -23,7 +24,9 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   final RegisterViewModel _viewModel = instance<RegisterViewModel>();
-  final _fromKey = GlobalKey<FormState>();
+final ImagePicker _imagePicker = instance<ImagePicker>();
+
+final _fromKey = GlobalKey<FormState>();
 
   final TextEditingController _userNameEditingController =
       TextEditingController();
@@ -213,7 +216,7 @@ class _RegisterViewState extends State<RegisterView> {
               // profile picture field
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-                child:Container(
+                child: Container(
                   height: AppSize.s40,
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -221,8 +224,8 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                   ),
                   child: GestureDetector(
-                    child: Widget _getMediaWidget(),
-                    onTap: (){
+                    child: _getMediaWidget(),
+                    onTap: () {
                       _showPicker(context);
                     },
                   ),
@@ -291,26 +294,66 @@ class _RegisterViewState extends State<RegisterView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Flexible(child: Text(AppStrings.profilePicture)),
-          Flexible(child: StreamBuilder<File>(
+          const Flexible(child: Text(AppStrings.profilePicture)),
+          Flexible(
+              child: StreamBuilder<File>(
             stream: _viewModel.outputProfilePicture,
-            builder: (context,snapshot){
+            builder: (context, snapshot) {
               return _imagePickedByUser(snapshot.data);
             },
           )),
-          Flexible(child:
-          SvgPicture.asset(ImageAssets.photoCameraIc)),
+          Flexible(child: SvgPicture.asset(ImageAssets.photoCameraIc)),
         ],
       ),
     );
   }
 
   Widget _imagePickedByUser(File? image) {
-    if(image != null && image.path.isNotEmpty){
+    if (image != null && image.path.isNotEmpty) {
       // return image
       return Image.file(image);
-    }else{
+    } else {
       return Container();
     }
   }
+
+  _showPicker(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return  SafeArea(
+              child: Wrap(
+            children: [
+              ListTile(
+                trailing: const Icon(Icons.arrow_forward),
+                leading: const Icon(Icons.camera),
+                title: const Text(AppStrings.photoGallery),
+                onTap: (){
+                  _imageFromGallery();
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                trailing: const Icon(Icons.arrow_forward),
+                leading: const Icon(Icons.camera_alt_outlined),
+                title: const Text(AppStrings.photoCamera),
+                onTap: (){
+                  _imageFromCamera();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ));
+        });
+  }
+
+   _imageFromGallery() async {
+     var image = await _imagePicker.pickImage(source: ImageSource.gallery);
+     _viewModel.setProfilePicture(File(image?.path ?? ''));
+  }
+
+   _imageFromCamera() async {
+     var image = await _imagePicker.pickImage(source: ImageSource.camera);
+     _viewModel.setProfilePicture(File(image?.path ?? ''));
+   }
 }

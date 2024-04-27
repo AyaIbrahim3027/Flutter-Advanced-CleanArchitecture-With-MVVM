@@ -36,4 +36,6 @@ class AppStrings {
   static const mobileNumberInvalid = "mobile Number should be at least 10 digits";
   static const passwordInvalid = "Password should be at least 6 characters";
   static const alreadyHaveAnAccount = "Already have an account ? Login";
+  static const photoGallery = 'Photo from gallery';
+  static const photoCamera = 'Photo from camera';
 }
