@@ -1,8 +1,10 @@
+import 'package:advanced_flutter/app/constants.dart';
 import 'package:advanced_flutter/app/dependancy_injection.dart';
 import 'package:advanced_flutter/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:advanced_flutter/presentation/register/viewmodel/register_viewmodel.dart';
 import 'package:advanced_flutter/presentation/resources/color_manager.dart';
 import 'package:advanced_flutter/presentation/resources/values_manager.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/assets_manager.dart';
@@ -76,7 +78,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   Widget _getContentWidget() {
     return Container(
-      padding: const EdgeInsets.only(top: AppPadding.p100),
+      padding: const EdgeInsets.only(top: AppPadding.p28),
       child: SingleChildScrollView(
         child: Form(
           key: _fromKey,
@@ -90,6 +92,8 @@ class _RegisterViewState extends State<RegisterView> {
               const SizedBox(
                 height: AppSize.s28,
               ),
+
+              //username field
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                 child: StreamBuilder<String?>(
@@ -101,15 +105,87 @@ class _RegisterViewState extends State<RegisterView> {
                       decoration: InputDecoration(
                         hintText: AppStrings.username,
                         labelText: AppStrings.username,
-                        errorText: snapshot.data ,
+                        errorText: snapshot.data,
                       ),
                     );
                   },
                 ),
               ),
               const SizedBox(
-                height: AppSize.s28,
+                height: AppSize.s18,
               ),
+
+              // mobile field
+              Center(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          flex: 1,
+                          child: CountryCodePicker(
+                            onChanged: (country) {
+                              // update view model with code
+                              _viewModel.setCountryCode(
+                                  country.code ?? Constants.token);
+                            },
+                            initialSelection: '+20',
+                            favorite: const ['+39', 'FR', '+966'],
+                            // optional. Shows only country name and flag
+                            showCountryOnly: true,
+                            hideMainText: true,
+                            // optional. Shows only country name and flag when popup is closed.
+                            showOnlyCountryWhenClosed: true,
+                          )),
+                      Expanded(
+                        flex: 4,
+                        child: StreamBuilder<String?>(
+                          stream: _viewModel.outputErrorMobileNumber,
+                          builder: (context, snapshot) {
+                            return TextFormField(
+                              keyboardType: TextInputType.phone,
+                              controller: _mobileNumberEditingController,
+                              decoration: InputDecoration(
+                                hintText: AppStrings.mobileNumber,
+                                labelText: AppStrings.mobileNumber,
+                                errorText: snapshot.data,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: AppSize.s18,
+              ),
+
+              // email field
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                child: StreamBuilder<String?>(
+                  stream: _viewModel.outputErrorEmail,
+                  builder: (context, snapshot) {
+                    return TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailEditingController,
+                      decoration: InputDecoration(
+                        hintText: AppStrings.email,
+                        labelText: AppStrings.email,
+                        errorText: snapshot.data,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: AppSize.s18,
+              ),
+
+              // password field
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                 child: StreamBuilder<String?>(
@@ -121,15 +197,17 @@ class _RegisterViewState extends State<RegisterView> {
                       decoration: InputDecoration(
                         hintText: AppStrings.password,
                         labelText: AppStrings.password,
-                        errorText: snapshot.data ,
+                        errorText: snapshot.data,
                       ),
                     );
                   },
                 ),
               ),
               const SizedBox(
-                height: AppSize.s28,
+                height: AppSize.s18,
               ),
+
+              // register button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                 child: StreamBuilder<bool>(
@@ -154,18 +232,19 @@ class _RegisterViewState extends State<RegisterView> {
                   },
                 ),
               ),
+
+              // already Have An Account text
               Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: AppPadding.p20, vertical: AppPadding.p8),
-                child:
-                    TextButton(
-                      onPressed: () {
-                        // Navigator.pushNamed(context, Routes.registerRoute);
-                      },
-                      child: Text(
-                        AppStrings.alreadyHaveAnAccount,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
+                    horizontal: AppPadding.p20, vertical: AppPadding.p18),
+                child: TextButton(
+                  onPressed: () {
+                    // Navigator.pushNamed(context, Routes.registerRoute);
+                  },
+                  child: Text(
+                    AppStrings.alreadyHaveAnAccount,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ),
               ),
             ],

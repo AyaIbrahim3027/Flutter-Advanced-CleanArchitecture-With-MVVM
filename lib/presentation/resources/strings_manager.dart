@@ -18,6 +18,7 @@ class AppStrings {
 
   static const username = 'Username';
   static const password = 'Password';
+  static const mobileNumber = 'Mobile Number';
   static const usernameError = 'Please enter your userName';
   static const emailError = 'Please enter your email';
   static const passwordError = 'Please enter your password';
