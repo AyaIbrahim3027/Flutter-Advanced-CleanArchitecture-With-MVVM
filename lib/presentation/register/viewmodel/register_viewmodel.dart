@@ -5,10 +5,11 @@ import 'package:advanced_flutter/presentation/base/base_view_model.dart';
 import 'package:advanced_flutter/presentation/resources/strings_manager.dart';
 import '../../../app/functions.dart';
 import '../../common/freezed_data_classes.dart';
+import '../../common/state_renderer/state_renderer.dart';
+import '../../common/state_renderer/state_renderer_impl.dart';
 
 class RegisterViewModel extends BaseViewModel
     with RegisterViewModelInput, RegisterViewModelOutput {
-
   StreamController userNameStreamController =
       StreamController<String>.broadcast();
   StreamController mobileNumberStreamController =
@@ -64,9 +65,31 @@ class RegisterViewModel extends BaseViewModel
   Sink get inputsAllInputsValid => areAllInputsValidStreamController.sink;
 
   @override
-  register() {
-    // TODO: implement register
-    throw UnimplementedError();
+  register() async {
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.popupLoadingState));
+    (await _registerUseCase.execute(RegisterUseCaseInput(
+            registerObject.userName,
+            registerObject.countryMobileCode,
+            registerObject.mobileNumber,
+            registerObject.email,
+            registerObject.password,
+            registerObject.profilePicture)))
+        .fold(
+            (failure) => {
+                  // left -> failure
+                  inputState.add(ErrorState(
+                      StateRendererType.popupErrorState, failure.message))
+                  // print(failure.message)
+                }, (data) {
+      // right -> data (success)
+      // print(data.customer?.name)
+
+      // content
+      inputState.add(ContentState());
+      // navigate to main screen
+      // isUserLoggedInSuccessfullyStreamController.add(true);
+    });
   }
 
   @override
