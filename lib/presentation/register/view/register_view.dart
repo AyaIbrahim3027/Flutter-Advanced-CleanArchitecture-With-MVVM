@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:advanced_flutter/app/constants.dart';
 import 'package:advanced_flutter/app/dependancy_injection.dart';
 import 'package:advanced_flutter/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -6,6 +8,7 @@ import 'package:advanced_flutter/presentation/resources/color_manager.dart';
 import 'package:advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../resources/assets_manager.dart';
 import '../../resources/routes_manager.dart';
@@ -218,7 +221,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                   ),
                   child: GestureDetector(
-                    child: _getMediaWidget(),
+                    child: Widget _getMediaWidget(),
                     onTap: (){
                       _showPicker(context);
                     },
@@ -280,5 +283,34 @@ class _RegisterViewState extends State<RegisterView> {
   void dispose() {
     _viewModel.dispose();
     super.dispose();
+  }
+
+  Widget _getMediaWidget() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(child: Text(AppStrings.profilePicture)),
+          Flexible(child: StreamBuilder<File>(
+            stream: _viewModel.outputProfilePicture,
+            builder: (context,snapshot){
+              return _imagePickedByUser(snapshot.data);
+            },
+          )),
+          Flexible(child:
+          SvgPicture.asset(ImageAssets.photoCameraIc)),
+        ],
+      ),
+    );
+  }
+
+  Widget _imagePickedByUser(File? image) {
+    if(image != null && image.path.isNotEmpty){
+      // return image
+      return Image.file(image);
+    }else{
+      return Container();
+    }
   }
 }
