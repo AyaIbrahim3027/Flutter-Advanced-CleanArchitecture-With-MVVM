@@ -22,6 +22,8 @@ class AppStrings {
   static const emailError = 'Please enter your email';
   static const passwordError = 'Please enter your password';
   static const login = 'Login';
+  static const register = 'Register';
+
   static const forgetPassword = 'Forget password';
   static const registerText = 'Not a member? Sign Up ';
   static const resetPassword = 'Reset Password';
@@ -36,4 +38,6 @@ class AppStrings {
   static const emailInvalid = "Email format is wrong";
   static const mobileNumberInvalid = "mobile Number should be at least 10 digits";
   static const passwordInvalid = "Password should be at least 6 characters";
+  static const alreadyHaveAnAccount = "Already have an account ? Login";
+
 }
