@@ -207,6 +207,28 @@ class _RegisterViewState extends State<RegisterView> {
                 height: AppSize.s18,
               ),
 
+              // profile picture field
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                child:Container(
+                  height: AppSize.s40,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorManager.lightGrey,
+                    ),
+                  ),
+                  child: GestureDetector(
+                    child: _getMediaWidget(),
+                    onTap: (){
+                      _showPicker(context);
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: AppSize.s40,
+              ),
+
               // register button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
