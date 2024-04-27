@@ -7,9 +7,12 @@ import 'package:advanced_flutter/presentation/resources/color_manager.dart';
 import 'package:advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../app/app_prefs.dart';
 import '../../resources/assets_manager.dart';
+import '../../resources/routes_manager.dart';
 import '../../resources/strings_manager.dart';
 
 class RegisterView extends StatefulWidget {
@@ -21,9 +24,10 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   final RegisterViewModel _viewModel = instance<RegisterViewModel>();
-final ImagePicker _imagePicker = instance<ImagePicker>();
+  final ImagePicker _imagePicker = instance<ImagePicker>();
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
-final _fromKey = GlobalKey<FormState>();
+  final _fromKey = GlobalKey<FormState>();
 
   final TextEditingController _userNameEditingController =
       TextEditingController();
@@ -46,6 +50,17 @@ final _fromKey = GlobalKey<FormState>();
     });
     _mobileNumberEditingController.addListener(() {
       _viewModel.setMobileNumber(_mobileNumberEditingController.text);
+    });
+
+    _viewModel.isUserRegisteredSuccessfullyStreamController.stream
+        .listen((isLoggedIn) {
+      if (isLoggedIn) {
+        // navigate to main screen
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          _appPreferences.setUserLoggedIn();
+          Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
+        });
+      }
     });
   }
 
@@ -126,12 +141,12 @@ final _fromKey = GlobalKey<FormState>();
                   child: Row(
                     children: [
                       Expanded(
-                          flex: 1,
+                          flex: 2,
                           child: CountryCodePicker(
                             onChanged: (country) {
                               // update view model with code
                               _viewModel.setCountryCode(
-                                  country.code ?? Constants.token);
+                                  country.dialCode ?? Constants.token);
                             },
                             initialSelection: '+20',
                             favorite: const ['+39', 'FR', '+966'],
@@ -142,7 +157,7 @@ final _fromKey = GlobalKey<FormState>();
                             showOnlyCountryWhenClosed: true,
                           )),
                       Expanded(
-                        flex: 4,
+                        flex: 6,
                         child: StreamBuilder<String?>(
                           stream: _viewModel.outputErrorMobileNumber,
                           builder: (context, snapshot) {
@@ -214,11 +229,12 @@ final _fromKey = GlobalKey<FormState>();
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                 child: Container(
-                  height: AppSize.s40,
+                  height: AppSize.s48,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(AppSize.s8)),
                     border: Border.all(
-                      color: ColorManager.grey,
+                      color: ColorManager.darkGrey,
                     ),
                   ),
                   child: GestureDetector(
@@ -319,23 +335,27 @@ final _fromKey = GlobalKey<FormState>();
     showModalBottomSheet(
         context: context,
         builder: (context) {
-          return  SafeArea(
+          return SafeArea(
               child: Wrap(
             children: [
               ListTile(
-                trailing: const Icon(Icons.arrow_forward),
+                trailing: const Icon(
+                  Icons.arrow_forward,
+                ),
                 leading: const Icon(Icons.camera),
-                title: const Text(AppStrings.photoGallery),
-                onTap: (){
+                title:  Text(AppStrings.photoGallery , style: TextStyle(color:ColorManager.primary),),
+                onTap: () {
                   _imageFromGallery();
                   Navigator.of(context).pop();
                 },
               ),
               ListTile(
-                trailing: const Icon(Icons.arrow_forward),
+                trailing: const Icon(
+                  Icons.arrow_forward,
+                ),
                 leading: const Icon(Icons.camera_alt_outlined),
-                title: const Text(AppStrings.photoCamera),
-                onTap: (){
+                title:  Text(AppStrings.photoCamera , style: TextStyle(color:ColorManager.primary),),
+                onTap: () {
                   _imageFromCamera();
                   Navigator.of(context).pop();
                 },
@@ -345,13 +365,13 @@ final _fromKey = GlobalKey<FormState>();
         });
   }
 
-   _imageFromGallery() async {
-     var image = await _imagePicker.pickImage(source: ImageSource.gallery);
-     _viewModel.setProfilePicture(File(image?.path ?? ''));
+  _imageFromGallery() async {
+    var image = await _imagePicker.pickImage(source: ImageSource.gallery);
+    _viewModel.setProfilePicture(File(image?.path ?? ''));
   }
 
-   _imageFromCamera() async {
-     var image = await _imagePicker.pickImage(source: ImageSource.camera);
-     _viewModel.setProfilePicture(File(image?.path ?? ''));
-   }
+  _imageFromCamera() async {
+    var image = await _imagePicker.pickImage(source: ImageSource.camera);
+    _viewModel.setProfilePicture(File(image?.path ?? ''));
+  }
 }
