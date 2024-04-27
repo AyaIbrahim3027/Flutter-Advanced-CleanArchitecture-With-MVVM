@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:advanced_flutter/app/constants.dart';
 import 'package:advanced_flutter/app/dependancy_injection.dart';
 import 'package:advanced_flutter/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -10,9 +9,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../resources/assets_manager.dart';
-import '../../resources/routes_manager.dart';
 import '../../resources/strings_manager.dart';
 
 class RegisterView extends StatefulWidget {
@@ -219,8 +216,9 @@ final _fromKey = GlobalKey<FormState>();
                 child: Container(
                   height: AppSize.s40,
                   decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
                     border: Border.all(
-                      color: ColorManager.lightGrey,
+                      color: ColorManager.grey,
                     ),
                   ),
                   child: GestureDetector(
@@ -267,7 +265,7 @@ final _fromKey = GlobalKey<FormState>();
                     horizontal: AppPadding.p20, vertical: AppPadding.p18),
                 child: TextButton(
                   onPressed: () {
-                    // Navigator.pushNamed(context, Routes.registerRoute);
+                    Navigator.of(context).pop();
                   },
                   child: Text(
                     AppStrings.alreadyHaveAnAccount,
