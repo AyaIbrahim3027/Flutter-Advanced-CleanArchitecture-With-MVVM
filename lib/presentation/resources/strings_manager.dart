@@ -38,4 +38,10 @@ class AppStrings {
   static const alreadyHaveAnAccount = "Already have an account ? Login";
   static const photoGallery = 'Photo from gallery';
   static const photoCamera = 'Photo from camera';
+
+  static const home = 'Home';
+  static const search = 'Search';
+  static const notifications = 'Notifications';
+  static const settings = 'Settings';
+
 }
