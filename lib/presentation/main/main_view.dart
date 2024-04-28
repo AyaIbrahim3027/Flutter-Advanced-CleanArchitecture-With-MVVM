@@ -23,7 +23,7 @@ class _MainViewState extends State<MainView> {
   ];
 
   List<String> titles = [
-     AppStrings.home,
+    AppStrings.home,
     AppStrings.search,
     AppStrings.notifications,
     AppStrings.settings,
@@ -45,7 +45,10 @@ class _MainViewState extends State<MainView> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(color: ColorManager.black, spreadRadius: AppSize.s1_5)
+            BoxShadow(
+              color: ColorManager.lightGrey,
+              spreadRadius: AppSize.s1,
+            )
           ],
         ),
         child: BottomNavigationBar(
@@ -68,7 +71,7 @@ class _MainViewState extends State<MainView> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings_outlined),
-                label: AppStrings.home,
+                label: AppStrings.settings,
               ),
             ]),
       ),
@@ -78,7 +81,7 @@ class _MainViewState extends State<MainView> {
   onTap(int index) {
     setState(() {
       _currentIndex = index;
-      _title = _title[index];
+      _title = titles[index];
     });
   }
 }
