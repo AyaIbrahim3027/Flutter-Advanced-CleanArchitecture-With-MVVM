@@ -12,29 +12,63 @@ class SliderViewObject {
   int numOfSlides;
   int currentIndex;
   SliderViewObject(
-      this.sliderObject,
-      this.numOfSlides,
-      this.currentIndex,
-      );
+    this.sliderObject,
+    this.numOfSlides,
+    this.currentIndex,
+  );
 }
 
 // login models
-class Customer{
+class Customer {
   String id;
   String name;
   int numOfNotifications;
-  Customer(this.id,this.name,this.numOfNotifications);
+  Customer(this.id, this.name, this.numOfNotifications);
 }
 
-class Contact{
+class Contact {
   String phone;
   String email;
   String link;
-  Contact(this.phone,this.email,this.link);
+  Contact(this.phone, this.email, this.link);
 }
 
-class Authentication{
+class Authentication {
   Customer? customer;
   Contact? contacts;
-  Authentication(this.customer,this.contacts);
+  Authentication(this.customer, this.contacts);
+}
+
+class Service {
+  String id;
+  String title;
+  String image;
+  Service(this.id, this.title, this.image);
+}
+
+class BannerAd {
+  String id;
+  String title;
+  String image;
+  String link;
+  BannerAd(this.id, this.title, this.image, this.link);
+}
+
+class Store {
+  String id;
+  String title;
+  String image;
+  Store(this.id, this.title, this.image);
+}
+
+class HomeData {
+  List<Service> services;
+  List<BannerAd> banners;
+  List<Store> stores;
+  HomeData(this.services, this.banners, this.stores);
+}
+
+class HomeObject {
+  HomeData? data;
+  HomeObject(this.data);
 }
