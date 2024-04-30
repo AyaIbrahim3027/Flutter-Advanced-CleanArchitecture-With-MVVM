@@ -1,7 +1,7 @@
-import 'package:advanced_flutter/presentation/main/pages/home_page.dart';
-import 'package:advanced_flutter/presentation/main/pages/notifications_page.dart';
-import 'package:advanced_flutter/presentation/main/pages/search_page.dart';
-import 'package:advanced_flutter/presentation/main/pages/settings_page.dart';
+import 'package:advanced_flutter/presentation/main/pages/home/view/home_page.dart';
+import 'package:advanced_flutter/presentation/main/pages/notifications/notifications_page.dart';
+import 'package:advanced_flutter/presentation/main/pages/search/search_page.dart';
+import 'package:advanced_flutter/presentation/main/pages/settings/settings_page.dart';
 import 'package:advanced_flutter/presentation/resources/color_manager.dart';
 import 'package:advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:advanced_flutter/presentation/resources/values_manager.dart';
