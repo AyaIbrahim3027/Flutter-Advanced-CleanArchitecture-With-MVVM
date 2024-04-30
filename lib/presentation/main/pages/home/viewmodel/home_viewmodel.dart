@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:advanced_flutter/domain/model/models.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../../domain/usecase/home_usecase.dart';
 import '../../../../base/base_view_model.dart';
+import '../../../../common/state_renderer/state_renderer.dart';
+import '../../../../common/state_renderer/state_renderer_impl.dart';
 
 class HomeViewModel extends BaseViewModel
     with HomeViewModelInput, HomeViewModelOutput {
@@ -15,15 +18,38 @@ class HomeViewModel extends BaseViewModel
   final StreamController _storesStreamController =
       BehaviorSubject<List<Store>>();
 
-  final HomeUseCase homeUseCase;
+  final HomeUseCase _homeUseCase;
 
-  HomeViewModel(this.homeUseCase);
+  HomeViewModel(this._homeUseCase);
 
   // inputs
 
   @override
   void start() {
-    // TODO: implement start
+    _getHomeData();
+  }
+
+  _getHomeData() async{
+    inputState.add(LoadingState(stateRendererType: StateRendererType.fullScreenLoadingState));
+    (await _homeUseCase.execute(Void))
+        .fold(
+            (failure) => {
+          // left -> failure
+          inputState.add(ErrorState(StateRendererType.fullScreenErrorState, failure.message))
+          // print(failure.message)
+        },
+            (homeObject) {
+          // right -> data (success)
+          // print(data.customer?.name)
+
+          // content
+          inputState.add(ContentState());
+
+          inputBanners.add(homeObject.data?.banners);
+          inputServices.add(homeObject.data?.services);
+          inputStores.add(homeObject.data?.stores);
+              // navigate to main screen
+        });
   }
 
   @override
