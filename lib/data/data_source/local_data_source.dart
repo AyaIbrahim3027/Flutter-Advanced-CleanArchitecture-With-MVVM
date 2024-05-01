@@ -1,21 +1,31 @@
+import 'package:advanced_flutter/data/network/error_handler.dart';
+
 import '../response/responses.dart';
 
 const CACHE_HOME_KEY = 'CACHE_HOME_KEY';
+const CACHE_HOME_INTERVAL = 60*1000; // 1 minute cache in millisecond
 
-abstract class LocalDataSource{
+
+abstract class LocalDataSource {
   Future<HomeResponse> getHome();
   Future<void> saveHomeToCache(HomeResponse homeResponse);
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
-
   // run time cache
- Map<String,CachedItem> cacheMap = Map();
+  Map<String, CachedItem> cacheMap = Map();
 
   @override
-  Future<HomeResponse> getHome() {
-    // TODO: implement getHome
-    throw UnimplementedError();
+  Future<HomeResponse> getHome() async {
+    CachedItem? cachedItem = cacheMap[CACHE_HOME_KEY];
+
+    if (cachedItem != null && cachedItem.isValid(CACHE_HOME_INTERVAL)) {
+      // return response from cache
+      return cachedItem.data;
+    } else {
+      // return an error that cache isn't there or its not valid
+      throw ErrorHandler.handle(DataSource.CACHE_ERROR);
+    }
   }
 
   @override
@@ -29,4 +39,14 @@ class CachedItem {
   int cacheTime = DateTime.now().millisecondsSinceEpoch;
 
   CachedItem(this.data);
+}
+
+extension CachedItemExtension on CachedItem{
+  bool isValid(int expirationTimeInMillisecond){
+
+    int currentTimeInMillisecond = DateTime.now().millisecondsSinceEpoch;
+
+    bool isValid = currentTimeInMillisecond - cacheTime <= expirationTimeInMillisecond;
+    return isValid;
+  }
 }
