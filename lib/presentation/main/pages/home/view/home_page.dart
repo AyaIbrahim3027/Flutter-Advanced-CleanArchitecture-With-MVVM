@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
           bottom: AppPadding.p2),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context).textTheme.labelSmall,
       ),
     );
   }

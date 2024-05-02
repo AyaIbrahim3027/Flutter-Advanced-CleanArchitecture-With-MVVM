@@ -33,7 +33,8 @@ class AppStrings {
   static const success = 'Success';
   static const userNameInvalid = "User name should be at least 8 characters";
   static const emailInvalid = "Email format is wrong";
-  static const mobileNumberInvalid = "mobile Number should be at least 10 digits";
+  static const mobileNumberInvalid =
+      "mobile Number should be at least 10 digits";
   static const passwordInvalid = "Password should be at least 6 characters";
   static const alreadyHaveAnAccount = "Already have an account ? Login";
   static const photoGallery = 'Photo from gallery';
@@ -42,9 +43,9 @@ class AppStrings {
   static const search = 'Search';
   static const notifications = 'Notifications';
   static const settings = 'Settings';
-
   static const services = 'Services';
   static const stores = 'Stores';
-
-
+  static const details = "Details";
+  static const about = "About Store";
+  static const storeDetails = "Store details";
 }
