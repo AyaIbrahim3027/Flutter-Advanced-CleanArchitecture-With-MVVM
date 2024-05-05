@@ -1,5 +1,5 @@
 class AppStrings {
-  static const noRouteFound = 'No Route Found';
+  static const noRouteFound = 'no_route_found';
   static const onBoardingTitle1 = "on_boarding_title1";
   static const onBoardingTitle2 = "on_boarding_title2";
   static const onBoardingTitle3 = "on_boarding_title3";
@@ -27,8 +27,8 @@ class AppStrings {
   static const success = "success";
   static const userNameInvalid = "username_hint_message";
   static const mobileNumberInvalid = "mobile_number_hint_message";
-  static const String passwordInvalid = "password_hint_message";
-  static const String alreadyHaveAccount = "already_have_account";
+  static const  passwordInvalid = "password_hint_message";
+  static const  alreadyHaveAccount = "already_have_account";
   static const register = "register";
   static const mobileNumber = "mobile_number_hint";
   static const profilePicture = "upload_profile_picture";
@@ -47,12 +47,7 @@ class AppStrings {
   static const contactUs = "contact_us";
   static const inviteYourFriends = "invite_your_friends";
   static const logout = "logout";
-
-
   static const resendEmail = 'Didn’t recieve email ? Resend';
-  static const email = 'Email';
-
-  static const alreadyHaveAnAccount = "Already have an account ? Login";
 
   // error handler
   static const  badRequestError = "bad_request_error";

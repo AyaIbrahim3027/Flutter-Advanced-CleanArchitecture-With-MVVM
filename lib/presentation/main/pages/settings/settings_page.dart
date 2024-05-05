@@ -5,6 +5,7 @@ import 'package:advanced_flutter/presentation/resources/assets_manager.dart';
 import 'package:advanced_flutter/presentation/resources/routes_manager.dart';
 import 'package:advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:advanced_flutter/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -28,7 +29,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ListTile(
             leading: SvgPicture.asset(ImageAssets.changeLangIc),
             title: Text(
-              AppStrings.changeLanguage,
+              AppStrings.changeLanguage.tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             trailing: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
@@ -39,7 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ListTile(
             leading: SvgPicture.asset(ImageAssets.contactUsIc),
             title: Text(
-              AppStrings.contactUs,
+              AppStrings.contactUs.tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             trailing: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
@@ -50,7 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ListTile(
             leading: SvgPicture.asset(ImageAssets.inviteFriendsIc),
             title: Text(
-              AppStrings.inviteYourFriends,
+              AppStrings.inviteYourFriends.tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             trailing: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
@@ -61,7 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ListTile(
             leading: SvgPicture.asset(ImageAssets.logoutIc),
             title: Text(
-              AppStrings.logout,
+              AppStrings.logout.tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             trailing: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
