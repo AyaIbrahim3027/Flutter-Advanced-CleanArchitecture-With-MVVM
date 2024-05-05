@@ -2,12 +2,15 @@ import 'package:advanced_flutter/app/app_prefs.dart';
 import 'package:advanced_flutter/app/dependancy_injection.dart';
 import 'package:advanced_flutter/data/data_source/local_data_source.dart';
 import 'package:advanced_flutter/presentation/resources/assets_manager.dart';
+import 'package:advanced_flutter/presentation/resources/language_manager.dart';
 import 'package:advanced_flutter/presentation/resources/routes_manager.dart';
 import 'package:advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:math' as math;
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -32,7 +35,11 @@ class _SettingsPageState extends State<SettingsPage> {
               AppStrings.changeLanguage.tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            trailing: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
+            trailing: Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.rotationY(isRTL() ? math.pi : 0),
+              child: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
+            ),
             onTap: () {
               _changeLanguage();
             },
@@ -43,7 +50,11 @@ class _SettingsPageState extends State<SettingsPage> {
               AppStrings.contactUs.tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            trailing: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
+            trailing: Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.rotationY(isRTL() ? math.pi : 0),
+              child: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
+            ),
             onTap: () {
               _contactUs();
             },
@@ -54,7 +65,11 @@ class _SettingsPageState extends State<SettingsPage> {
               AppStrings.inviteYourFriends.tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            trailing: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
+            trailing: Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.rotationY(isRTL() ? math.pi : 0),
+              child: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
+            ),
             onTap: () {
               _inviteFriends();
             },
@@ -65,7 +80,11 @@ class _SettingsPageState extends State<SettingsPage> {
               AppStrings.logout.tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            trailing: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
+            trailing: Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.rotationY(isRTL() ? math.pi : 0),
+              child: SvgPicture.asset(ImageAssets.rightArrowSettingsIc),
+            ),
             onTap: () {
               _logout();
             },
@@ -75,7 +94,14 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  _changeLanguage() {}
+  bool isRTL() {
+    return context.locale == ARABIC_LOCAL;
+  }
+
+  _changeLanguage() {
+    _appPreferences.changeAppLanguage();
+    Phoenix.rebirth(context);
+  }
 
   _contactUs() {}
 
