@@ -52,4 +52,15 @@ class AppStrings {
   static const contactUs = "Contact Us";
   static const inviteYourFriends = "Invite Your Friends";
   static const logout = "Logout";
+  static const badRequest = "Bad request, Try again later";
+  static const unauthorised = "User ia unauthorised, Try again later";
+  static const forbidden = "Forbidden request, Try again later";
+  static const notFound = "Some thing went wrong, Try again later";
+  static const connectTimeOut = "Time out error, Try again later";
+  static const cancel = "Request was cancelled, Try again later";
+  static const receiveTimeOut = "Time out error, Try again later";
+  static const sendTimeOut = "Time out error, Try again later";
+  static const cacheError = "Cache error, Try again later";
+  static const noInternetConnection =
+      "Please check your  internet connection";
 }
