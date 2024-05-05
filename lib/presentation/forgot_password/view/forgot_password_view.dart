@@ -79,7 +79,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         labelText: AppStrings.email,
                         errorText: (snapshot.data ?? true)
                             ? null
-                            : AppStrings.emailError,
+                            : AppStrings.invalidEmail,
                       ),
                     );
                   },

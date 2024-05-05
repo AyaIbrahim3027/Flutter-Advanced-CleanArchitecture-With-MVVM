@@ -190,7 +190,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   Stream<String?> get outputErrorEmail => outputIsEmailValid
-      .map((isEmailValid) => isEmailValid ? null : AppStrings.emailInvalid);
+      .map((isEmailValid) => isEmailValid ? null : AppStrings.invalidEmail);
 
   @override
   Stream<bool> get outputIsMobileNumberValid =>

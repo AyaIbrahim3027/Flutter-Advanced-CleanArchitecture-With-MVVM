@@ -121,26 +121,27 @@ class ResponseCode {
 
 class ResponseMessage {
   static const String SUCCESS = AppStrings.success; // success with data
-  static const String NO_CONTENT = AppStrings.success; // success with no data
+  static const String NO_CONTENT =
+      AppStrings.success; // success with no data (no content)
   static const String BAD_REQUEST =
-      AppStrings.badRequest; // failure, API rejected request
+      AppStrings.badRequestError; // failure, API rejected request
   static const String UNAUThORISED =
-      AppStrings.unauthorised; // failure, user is not authorised
+      AppStrings.unauthorizedError; // failure, user is not authorised
   static const String FORBIDDEN =
-      AppStrings.forbidden; // failure, API rejected request
-  static const String NOT_FOUND = AppStrings.notFound;
+      AppStrings.forbiddenError; //  failure, API rejected request
   static const String INTERNAL_SERVER_Error =
-      AppStrings.notFound; // failure, crash in server side
+      AppStrings.internalServerError; // failure, crash in server side
+  static const String NOT_FOUND =
+      AppStrings.notFoundError; // failure, crash in server side
 
   // local status code
-  static const String CONNECT_TIMEOUT = AppStrings.connectTimeOut;
-  static const String CANCEL = AppStrings.cancel;
-  static const String RECIEVE_TIMEOUT = AppStrings.receiveTimeOut;
-  static const String SEND_TIMEOUT = AppStrings.sendTimeOut;
+  static const String CONNECT_TIMEOUT = AppStrings.timeoutError;
+  static const String CANCEL = AppStrings.defaultError;
+  static const String RECIEVE_TIMEOUT = AppStrings.timeoutError;
+  static const String SEND_TIMEOUT = AppStrings.timeoutError;
   static const String CACHE_ERROR = AppStrings.cacheError;
-  static const String NO_INTERNET_CONNECTION =
-      AppStrings.noInternetConnection;
-  static const String DEFAULT = AppStrings.notFound;
+  static const String NO_INTERNET_CONNECTION = AppStrings.noInternetError;
+  static const String DEFAULT = AppStrings.defaultError;
 }
 
 class ApiInternalStatus {
